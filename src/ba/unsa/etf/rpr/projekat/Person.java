@@ -1,6 +1,6 @@
 package ba.unsa.etf.rpr.projekat;
 
-public class Person implements Validation {
+public abstract class Person implements Validation {
     private String firstName, lastName, email, address, jmbg;
     private int id;
     private Login login;
@@ -51,7 +51,9 @@ public class Person implements Validation {
     }
 
     public void setAddress(String address) {
-        this.address = address;
+        if (isAlphanumeric(address)) {
+            this.address = address;
+        }
     }
 
     public String getJmbg() {
