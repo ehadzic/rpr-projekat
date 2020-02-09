@@ -20,6 +20,10 @@ public interface Validation {
         return string.matches("[a-zA-Z0-9]+$");
     }
 
+    default boolean validateTitle(String title) {
+        return title.matches("[a-zA-Z .]+$");
+    }
+
     default boolean validateUsername(String username) {
         return username.matches("^[a-zA-Z][a-zA-Z0-9.,$;]+$");
 

@@ -2,7 +2,6 @@ package ba.unsa.etf.rpr.projekat;
 
 public class Login implements Validation {
     private String username, password;
-    // private LocalDate dateCreated, lastLoginDate;
     private UserType userType;
     private int id;
 
