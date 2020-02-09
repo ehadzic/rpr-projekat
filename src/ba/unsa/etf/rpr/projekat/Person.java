@@ -8,12 +8,14 @@ public abstract class Person implements Validation {
     // TODO: perzitencija sa bazom
 
     public Person(int id, String firstName, String lastName, String email, String address, String jmbg) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-        this.address = address;
-        this.jmbg = jmbg;
-        this.id = id;
+        if (validateJMBG(jmbg) && validateEmail(email) && validateName(firstName) && validateName(lastName) && isAlphanumeric(address)) {
+            this.jmbg = jmbg;
+            this.firstName = firstName;
+            this.lastName = lastName;
+            this.email = email;
+            this.address = address;
+            this.id = id;
+        } else throw new IllegalArgumentException("Wrong attribute value!");
     }
 
     public String getFirstName() {
