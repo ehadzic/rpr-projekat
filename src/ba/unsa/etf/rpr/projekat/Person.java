@@ -3,6 +3,7 @@ package ba.unsa.etf.rpr.projekat;
 public class Person implements Validation {
     private String firstName, lastName, email, address, jmbg;
     private int id;
+    private Login login;
 
     // TODO: perzitencija sa bazom
 
@@ -69,5 +70,13 @@ public class Person implements Validation {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public Login getLogin() {
+        return login;
+    }
+
+    public void setLogin(Login login) {
+        this.login = login;
     }
 }
