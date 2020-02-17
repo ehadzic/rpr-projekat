@@ -13,7 +13,7 @@ public class EIndexDAO {
     private static EIndexDAO instance;
     private static Connection connection;
 
-    private PreparedStatement getPersonById, getStudent, getProfessor, getAdmin, getUsersLogin, getGradeStudentId, getCourseByID, getCoursesProfessor, getGradesCourses, updateGrade, addPerson, addLogin, addStudent, addProfessor, getPersonID, getLoginID;
+    private PreparedStatement getPersonByJMBG, getStudent, getProfessor, getAdmin, getUsersLogin, getGradeStudentId, getCourseByID, getCoursesProfessor, getGradesCourses, updateGrade, addPerson, addLogin, addStudent, addProfessor, getPersonID, getLoginID, deleteProfessor, deleteAdmin, deleteStudent, deletePerson;
 
     private EIndexDAO() {
         try {
@@ -45,7 +45,7 @@ public class EIndexDAO {
         }
 
         try {
-            getPersonById = connection.prepareStatement("SELECT * FROM Person WHERE id=?");
+            getPersonByJMBG = connection.prepareStatement("SELECT id FROM Person WHERE jmbg=?");
             getStudent = connection.prepareStatement("SELECT id, firstName, lastName, email, address, jmbg, indexID FROM Person, Student WHERE person_id=id AND id=?");
             getProfessor = connection.prepareStatement("SELECT id, firstName, lastName, email, address, jmbg, title FROM Person, Professor WHERE person_id=id AND id=?");
             getAdmin = connection.prepareStatement("SELECT * FROM Person, Admin WHERE person_id=id AND id=?");
@@ -61,6 +61,10 @@ public class EIndexDAO {
             addLogin = connection.prepareStatement("INSERT INTO Login (id,username,password,userType,person_id) VALUES (?,?,?,?,?)");
             getPersonID = connection.prepareStatement("SELECT id FROM Person");
             getLoginID = connection.prepareStatement("SELECT id FROM Login");
+            deletePerson = connection.prepareStatement("DELETE FROM Person WHERE jmbg=?");
+            deleteStudent = connection.prepareStatement("DELETE FROM Student WHERE person_id=?");
+            deleteAdmin = connection.prepareStatement("DELETE FROM Admin WHERE person_id=?");
+            deleteProfessor = connection.prepareStatement("DELETE FROM Professor WHERE person_id=?");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -385,6 +389,24 @@ public class EIndexDAO {
             e.printStackTrace();
         }
         return result;
+    }
+
+    public void deletePersonByJmbg(String jmbg) {
+        try {
+            getPersonByJMBG.setString(1, jmbg);
+            ResultSet rs = getPersonByJMBG.executeQuery();
+            int id = rs.getInt(1);
+            deletePerson.setString(1, jmbg);
+            deleteProfessor.setInt(1, id);
+            deleteStudent.setInt(1, id);
+            deleteAdmin.setInt(1, id);
+            deleteStudent.executeUpdate();
+            deleteAdmin.executeUpdate();
+            deleteProfessor.executeUpdate();
+            deletePerson.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }
 

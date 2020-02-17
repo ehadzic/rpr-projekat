@@ -24,6 +24,7 @@ public class AdminController {
     public TextField fldTitle;
     public TextField fldIndex;
     public TextField fldUsername;
+    public TextField fldDeleteJmbg;
     public PasswordField fldPassword;
     public ListView<Login> listUsers;
     private UserModel model;
@@ -88,7 +89,11 @@ public class AdminController {
     }
 
     public void deleteUser(ActionEvent actionEvent) {
-
+        // ukoliko ne postoji dati jmbg, nece se nista desiti
+        EIndexDAO.getInstance().deletePersonByJmbg(fldDeleteJmbg.getText());
+        // refresh model
+        model.refreshModel();
+        listUsers.setItems(FXCollections.observableArrayList(model.getUserList()));
     }
 
     public void about(ActionEvent actionEvent) {
