@@ -1,5 +1,7 @@
 package ba.unsa.etf.rpr.projekat;
 
+import java.util.Objects;
+
 public class Course implements Validation {
     private String code;
     private String name;
@@ -70,5 +72,27 @@ public class Course implements Validation {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Course)) return false;
+        Course course = (Course) o;
+        return getCreditsECTS() == course.getCreditsECTS() &&
+                getSemester() == course.getSemester() &&
+                getId() == course.getId() &&
+                getCode().equals(course.getCode()) &&
+                getName().equals(course.getName());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getCode(), getName(), getCreditsECTS(), getSemester(), getId());
+    }
+
+    @Override
+    public String toString() {
+        return name + " (" + code + ")";
     }
 }

@@ -2,6 +2,8 @@ package ba.unsa.etf.rpr.projekat;
 
 import java.time.LocalDate;
 
+import static ba.unsa.etf.rpr.projekat.Grades.*;
+
 public class Grade {
 
     private int id;
@@ -77,14 +79,36 @@ public class Grade {
         }
     }
 
+    public static Grades parseGrade(int anInt) {
+        switch (anInt) {
+            case 10:
+                return A;
+            case 9:
+                return B;
+            case 8:
+                return C;
+            case 7:
+                return D;
+            case 6:
+                return E;
+            default:
+                return NOT_GRADED;
+        }
+    }
+
     public Grades generateGrade() {
         if (points < 55) grade = Grades.NOT_GRADED;
-        else if (points >= 55 && points <= 64) grade = Grades.E;
-        else if (points >= 55 && points <= 74) grade = Grades.D;
-        else if (points >= 75 && points <= 84) grade = Grades.C;
+        else if (points >= 55 && points <= 64) grade = E;
+        else if (points >= 55 && points <= 74) grade = D;
+        else if (points >= 75 && points <= 84) grade = C;
         else if (points >= 85 && points <= 94) grade = Grades.B;
         else grade = Grades.A;
 
         return grade;
+    }
+
+    @Override
+    public String toString() {
+        return grade.toString();
     }
 }

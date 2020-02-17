@@ -4,12 +4,14 @@ public class Login implements Validation {
     private String username, password;
     private UserType userType;
     private int id;
+    private Person person;
 
-    public Login(String username, String password, UserType userType, int id) {
+    public Login(int id, String username, String password, UserType userType, Person person) {
         this.username = username;
         this.password = password;
         this.userType = userType;
         this.id = id;
+        this.person = person;
     }
 
     public String getUsername() {
@@ -44,5 +46,13 @@ public class Login implements Validation {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public Person getPerson() {
+        return person;
+    }
+
+    public void setPerson(Person person) {
+        this.person = person;
     }
 }

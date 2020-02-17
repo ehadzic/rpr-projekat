@@ -5,17 +5,15 @@ public abstract class Person implements Validation {
     private int id;
     private Login login;
 
-    // TODO: perzitencija sa bazom
-
     public Person(int id, String firstName, String lastName, String email, String address, String jmbg) {
-        if (validateJMBG(jmbg) && validateEmail(email) && validateName(firstName) && validateName(lastName) && isAlphanumeric(address)) {
-            this.jmbg = jmbg;
-            this.firstName = firstName;
-            this.lastName = lastName;
-            this.email = email;
-            this.address = address;
-            this.id = id;
-        } else throw new IllegalArgumentException("Wrong attribute value!");
+        //if (validateJMBG(jmbg) && validateEmail(email) && validateName(firstName) && validateName(lastName) && isAlphanumeric(address)) {
+        this.jmbg = jmbg;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.address = address;
+        this.id = id;
+        // } else throw new IllegalArgumentException("Wrong attribute value!");
     }
 
     public String getFirstName() {
@@ -82,5 +80,10 @@ public abstract class Person implements Validation {
 
     public void setLogin(Login login) {
         this.login = login;
+    }
+
+    @Override
+    public String toString() {
+        return firstName + " " + lastName;
     }
 }

@@ -9,5 +9,7 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="org.xerial:sqlite-jdbc:3.21.0" level="project" />
+    <orderEntry type="library" name="net.sf.jasperreports:jasperreports:6.11.0" level="project" />
   </component>
 </module>
