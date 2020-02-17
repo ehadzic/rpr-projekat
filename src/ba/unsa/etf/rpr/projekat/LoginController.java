@@ -80,10 +80,36 @@ public class LoginController {
                 break;
             default:
                 // admin
-
+                showAdminView();
                 break;
         }
 
+    }
+
+    private void showAdminView() {
+        AdminController tc = new AdminController(userModel);
+        tc.setStage(stage);
+
+        // Load in the .fxml file:
+        ResourceBundle bundle = ResourceBundle.getBundle("Translation");
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/admin.fxml"), bundle);
+        loader.setController(tc);
+        Parent root = null;
+        try {
+            root = loader.load();
+            // Set the scene:
+            stage.setScene(new Scene(root, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
+            stage.setTitle("Admin");
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        /*
+        // Set the scene:
+        stage.setScene(new Scene(root, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
+        stage.setTitle("Professor");
+        stage.show();*/
     }
 
     private void showProfessorView() {

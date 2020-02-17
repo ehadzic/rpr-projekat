@@ -13,7 +13,7 @@ public class EIndexDAO {
     private static EIndexDAO instance;
     private static Connection connection;
 
-    private PreparedStatement getPersonById, getStudent, getProfessor, getAdmin, getUsersLogin, getGradeStudentId, getCourseByID, getCoursesProfessor, getGradesCourses, updateGrade;
+    private PreparedStatement getPersonById, getStudent, getProfessor, getAdmin, getUsersLogin, getGradeStudentId, getCourseByID, getCoursesProfessor, getGradesCourses, updateGrade, addPerson, addLogin, addStudent, addProfessor, getPersonID, getLoginID;
 
     private EIndexDAO() {
         try {
@@ -55,7 +55,12 @@ public class EIndexDAO {
             getCoursesProfessor = connection.prepareStatement("SELECT * FROM Course WHERE professor_id=?");
             getGradesCourses = connection.prepareStatement("SELECT * FROM Grade WHERE course_id=?");
             updateGrade = connection.prepareStatement("UPDATE Grade SET grade=?, date=? WHERE id=?");
-
+            addProfessor = connection.prepareStatement("INSERT INTO Professor (person_id,title) VALUES (?,?)");
+            addPerson = connection.prepareStatement("INSERT INTO Person (id,firstName,lastName,email,address,jmbg) VALUES (?,?,?,?,?,?)");
+            addStudent = connection.prepareStatement("INSERT INTO Student (person_id,indexID) VALUES (?,?)");
+            addLogin = connection.prepareStatement("INSERT INTO Login (id,username,password,userType,person_id) VALUES (?,?,?,?,?)");
+            getPersonID = connection.prepareStatement("SELECT id FROM Person");
+            getLoginID = connection.prepareStatement("SELECT id FROM Login");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -293,4 +298,93 @@ public class EIndexDAO {
             e.printStackTrace();
         }
     }
+
+    public void addPerson(Person p) {
+        try {
+            addPerson.setString(2, p.getFirstName());
+            addPerson.setString(3, p.getLastName());
+            addPerson.setString(4, p.getEmail());
+            addPerson.setString(5, p.getAddress());
+            addPerson.setString(6, p.getJmbg());
+            addPerson.setInt(1, p.getId());
+            addPerson.executeUpdate();
+            addLogin(p.getLogin());
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void addProfessor(Professor p) {
+        addPerson(p);
+        try {
+            addProfessor.setString(2, p.getTitle());
+            addProfessor.setInt(1, p.getId());
+            addProfessor.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void addStudent(Student s) {
+        addPerson(s);
+        try {
+            addStudent.setString(2, s.getIndexID());
+            addStudent.setInt(1, s.getId());
+            addStudent.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void addAdmin(Admin a) {
+        addPerson(a);
+    }
+
+    public void addLogin(Login l) {
+        try {
+            addLogin.setInt(1, l.getId());
+            addLogin.setString(2, l.getUsername());
+            addLogin.setString(3, l.getPassword());
+            addLogin.setInt(4, l.getUserType().getValue());
+            addLogin.setInt(5, l.getPerson().getId());
+            addLogin.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public int getNextPersonId() {
+        int result = 1;
+        try {
+            ResultSet rs = getPersonID.executeQuery();
+            int max = 0;
+            while (rs.next()) {
+                if (rs.getInt(1) > max) {
+                    max = rs.getInt(1);
+                }
+            }
+            result = max + 1;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    public int getNextLoginId() {
+        int result = 1;
+        try {
+            ResultSet rs = getLoginID.executeQuery();
+            int max = 0;
+            while (rs.next()) {
+                if (rs.getInt(1) > max) {
+                    max = rs.getInt(1);
+                }
+            }
+            result = max + 1;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
 }
+

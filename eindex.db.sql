@@ -22,7 +22,8 @@ CREATE TABLE IF NOT EXISTS `Person` (
 	PRIMARY KEY(`id`)
 );
 INSERT INTO `Person` (id,firstName,lastName,email,address,jmbg) VALUES (1,'Neko','Neko','neko@neko.com','Ulica 1','1234567890123'),
- (2,'Profesor','Profesor','profesor@profesor.ba','Ulica 2','9876543210123');
+ (2,'Profesor','Profesor','profesor@profesor.ba','Ulica 2','9876543210123'),
+ (3,'Emina','Hadzic','emina@ema.com','Jedna 2','1111111111111');
 DROP TABLE IF EXISTS `Login`;
 CREATE TABLE IF NOT EXISTS `Login` (
 	`id`	INTEGER,
@@ -33,7 +34,8 @@ CREATE TABLE IF NOT EXISTS `Login` (
 	PRIMARY KEY(`id`)
 );
 INSERT INTO `Login` (id,username,password,userType,person_id) VALUES (1,'neko','neko',0,1),
- (2,'profesor','test',1,2);
+ (2,'profesor','test',1,2),
+ (3,'emina','emina',2,3);
 DROP TABLE IF EXISTS `Grade`;
 CREATE TABLE IF NOT EXISTS `Grade` (
 	`id`	INTEGER,
@@ -44,7 +46,7 @@ CREATE TABLE IF NOT EXISTS `Grade` (
 	`points`	INTEGER,
 	PRIMARY KEY(`id`)
 );
-INSERT INTO `Grade` (id,student_id,course_id,date,grade,points) VALUES (1,1,1,'4.2.2020',9,100);
+INSERT INTO `Grade` (id,student_id,course_id,date,grade,points) VALUES (1,1,1,'24.2.2020',10,100);
 DROP TABLE IF EXISTS `Course`;
 CREATE TABLE IF NOT EXISTS `Course` (
 	`id`	INTEGER,
@@ -60,5 +62,5 @@ DROP TABLE IF EXISTS `Admin`;
 CREATE TABLE IF NOT EXISTS `Admin` (
 	`person_id`	INTEGER
 );
-INSERT INTO `Admin` (person_id) VALUES (1);
+INSERT INTO `Admin` (person_id) VALUES (3);
 COMMIT;

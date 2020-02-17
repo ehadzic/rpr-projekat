@@ -18,4 +18,9 @@ public class UserModel {
     public void setUserList(ArrayList<Login> userList) {
         this.userList = userList;
     }
+
+
+    public void refreshModel() {
+        userList = database.getUsersLogin();
+    }
 }

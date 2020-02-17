@@ -55,4 +55,9 @@ public class Login implements Validation {
     public void setPerson(Person person) {
         this.person = person;
     }
+
+    @Override
+    public String toString() {
+        return username + " (" + person + ")";
+    }
 }

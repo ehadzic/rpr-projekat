@@ -12,18 +12,22 @@
                     <MenuItem fx:id="optionClose" mnemonicParsing="false" onAction="#close" text="Close"/>
                     <Menu fx:id="menuLanguage" mnemonicParsing="false" text="Language">
                         <items>
-                            <MenuItem fx:id="optionEnglish" mnemonicParsing="false" onAction="#promijeniJezikEngleski"
-                                      text="English"/>
-                            <MenuItem fx:id="optionBosanski" mnemonicParsing="false" onAction="#promijeniJezikBosanski"
+                            <MenuItem fx:id="optionEnglish" mnemonicParsing="false" onAction="#changeLanguageEN"
+                                      text="English (US)"/>
+                            <MenuItem fx:id="optionBosanski" mnemonicParsing="false" onAction="#changeLanguageBA"
                                       text="Bosanski"/>
                         </items>
                     </Menu>
-                    <MenuItem fx:id="optionExit" mnemonicParsing="false" onAction="#zavrsiProgram" text="Exit"/>
                 </items>
             </Menu>
             <Menu mnemonicParsing="false" text="Help">
                 <items>
-                    <MenuItem mnemonicParsing="false" onAction="#otvoriAbout" text="About"/>
+                    <MenuItem mnemonicParsing="false" onAction="#about" text="About"/>
+                </items>
+            </Menu>
+            <Menu mnemonicParsing="false" text="User">
+                <items>
+                    <MenuItem mnemonicParsing="false" onAction="#logout" text="Logout"/>
                 </items>
             </Menu>
         </menus>
@@ -31,7 +35,7 @@
     <GridPane xmlns:fx="http://javafx.com/fxml/1" alignment="center" hgap="10" vgap="10"
               xmlns="http://javafx.com/javafx/8.0.171">
         <stylesheets>
-            <URL value="@/css/korisnici.css"/>
+            <URL value="@/css/generalStyle.css"/>
         </stylesheets>
         <columnConstraints>
             <ColumnConstraints/>
@@ -72,7 +76,6 @@
                 <buttons>
                     <Button fx:id="btnDelete" mnemonicParsing="false" onAction="#deleteUser" text="%deleteBttn"/>
                     <Button fx:id="btnAdd" mnemonicParsing="false" onAction="#addUser" text="%addBttn"/>
-                    <Button fx:id="btnModify" mnemonicParsing="false" onAction="#modifyUser" text="%modifyBttn"/>
                 </buttons>
             </ButtonBar>
             <Label text="%address" GridPane.columnIndex="2" GridPane.rowIndex="5"/>
